@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "my-little-gatherer"
+version = "0.1.0"
+dependencies = [
+    "openai",
+    "streamlit",
+    "python-dotenv",
+    "pydantic-settings"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
