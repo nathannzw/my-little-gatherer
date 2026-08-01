@@ -9,7 +9,8 @@ dependencies = [
     "openai",
     "streamlit",
     "python-dotenv",
-    "pydantic-settings"
+    "pydantic-settings",
+    "fastapi>=0.141.1",
 ]
 
 [tool.setuptools.packages.find]
