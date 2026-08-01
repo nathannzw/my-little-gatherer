@@ -27,8 +27,8 @@ The goal is to learn and apply modern AI engineering practices including RAG, em
 
 Goal: Understand how LLM applications work end-to-end.
 
-- [ ] Install local LLM runtime (Ollama / similar)
-- [ ] Run first local model successfully
+- [x] Install local LLM runtime (llama.cpp)
+- [x] Run first local model successfully
 - [ ] Understand model parameters:
     - [ ] Temperature
     - [ ] Context window
