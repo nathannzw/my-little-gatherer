@@ -28,6 +28,15 @@ Execute the following command to download the 4-bit quantized GGUF model and sta
 llama-server -hf ggml-org/GLM-4.7-Flash-GGUF:Q4_K --repeat-penalty 1.0 -ngl 32
 ```
 
+alternatively, use:
+
+```powershell
+pip install -U huggingface_hub
+hf download ggml-org/GLM-4.7-Flash-GGUF --include "*Q4_K*" --local-dir .
+```
+
+move the model file `GLM-4.7-Flash-Q4_K.gguf` to an appropriate folder (e.g., .../models/glm).  
+
 ---
 
 ## Command Parameter Breakdown
