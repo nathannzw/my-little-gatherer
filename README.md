@@ -17,7 +17,7 @@ The goal is to learn and apply modern AI engineering practices including RAG, em
 - [x] Create clean project structure
 - [x] Configure Git workflow
 - [x] Write initial README
-- [ ] Add requirements.txt / dependency management
+- [x] Add dependency management (uv)
 - [x] Set up environment variables (.env)
 - [ ] Add basic logging
 
