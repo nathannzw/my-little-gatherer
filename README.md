@@ -14,11 +14,11 @@ The goal is to learn and apply modern AI engineering practices including RAG, em
 
 - [x] Create project repository
 - [x] Set up Python virtual environment
-- [ ] Create clean project structure
+- [x] Create clean project structure
 - [x] Configure Git workflow
 - [x] Write initial README
 - [ ] Add requirements.txt / dependency management
-- [ ] Set up environment variables (.env)
+- [x] Set up environment variables (.env)
 - [ ] Add basic logging
 
 ---
