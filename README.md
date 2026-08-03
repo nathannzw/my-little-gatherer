@@ -56,13 +56,13 @@ Goal: Build like a real software system.
 
 Architecture:
 
-User
+User  
 ↓
-Streamlit UI
+Streamlit UI  
 ↓
-FastAPI Backend
+FastAPI Backend  
 ↓
-LLM Service
+LLM Service  
 
 ---
 
