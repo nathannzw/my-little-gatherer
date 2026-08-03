@@ -54,16 +54,6 @@ Goal: Build like a real software system.
 - [ ] Containerize with Docker
 - [ ] Add basic testing
 
-Architecture:
-
-User  
-↓
-Streamlit UI  
-↓
-FastAPI Backend  
-↓
-LLM Service  
-
 ---
 
 # Phase 3 — Document Intelligence
