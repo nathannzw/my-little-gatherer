@@ -1,8 +1,8 @@
 import streamlit as st
 
 from gatherer.llm.client import LLMError, ask_llm
-from gatherer.ui.chat import render_question_form
-from gatherer.ui.generation import render_generation_settings
+from components.chat import render_question_form
+from components.generation import render_generation_settings
 
 st.title("My Little Gatherer")
 
@@ -24,5 +24,5 @@ if submitted:
     except LLMError as error:
         st.error(str(error))
 
-# Initial Test: run with 
+# Run with:
 # streamlit run ui/streamlit_app.py
