@@ -1,3 +1,6 @@
+import time
+from dataclasses import dataclass
+
 from openai import OpenAI
 from openai import APIConnectionError, APIStatusError, APITimeoutError
 
@@ -6,6 +9,19 @@ from gatherer.core.config import settings
 
 class LLMError(RuntimeError):
     """An expected failure while communicating with the model server."""
+
+
+@dataclass(frozen=True)
+class LLMResult:
+    answer: str
+    model: str
+    elapsed_seconds: float
+    prompt_chars: int
+    output_chars: int
+    finish_reason: str | None
+    prompt_tokens: int | None
+    completion_tokens: int | None
+    total_tokens: int | None
 
 
 client = OpenAI(
@@ -21,7 +37,7 @@ def ask_llm(
     temperature: float = 0.7,
     top_p: float = 0.95,
     max_tokens: int = 512,
-) -> str:
+) -> LLMResult:
     prompt = prompt.strip()
     if not prompt:
         raise ValueError("Please enter a question before sending it.")
@@ -33,6 +49,8 @@ def ask_llm(
         raise ValueError("Top-p must be greater than 0 and no more than 1.")
     if not 1 <= max_tokens <= 4_096:
         raise ValueError("Maximum output tokens must be between 1 and 4,096.")
+
+    started_at = time.perf_counter()
 
     try:
         response = client.chat.completions.create(
@@ -54,4 +72,19 @@ def ask_llm(
     if not response.choices or not response.choices[0].message.content:
         raise LLMError("The model returned an empty response. Try again.")
 
-    return response.choices[0].message.content.strip()
+    answer = response.choices[0].message.content.strip()
+    elapsed_seconds = time.perf_counter() - started_at
+    usage = response.usage
+    choice = response.choices[0]
+
+    return LLMResult(
+        answer=answer,
+        model=response.model,
+        elapsed_seconds=elapsed_seconds,
+        prompt_chars=len(prompt),
+        output_chars=len(answer),
+        finish_reason=choice.finish_reason,
+        prompt_tokens=getattr(usage, "prompt_tokens", None),
+        completion_tokens=getattr(usage, "completion_tokens", None),
+        total_tokens=getattr(usage, "total_tokens", None),
+    )

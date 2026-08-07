@@ -31,7 +31,7 @@ def render_generation_settings() -> GenerationSettings:
             "Maximum output tokens",
             min_value=1,
             max_value=4096,
-            value=512,
+            value=2048,
             step=1,
         )
 
@@ -46,7 +46,7 @@ def render_generation_settings() -> GenerationSettings:
 
                 - Temperature: `0.7`
                 - Top-p: `0.95`
-                - Maximum output tokens: `512`
+                - Maximum output tokens: `2048`
 
                 **Temperature**
 
