@@ -13,8 +13,9 @@
 # Source Files for llama.cpp 
 /llama-cpp
 
-# Project Metadata
+# Project Files
 *.egg-info/
+__init__.py
 
 # Byte-compiled / optimized / DLL support files
 __pycache__/
