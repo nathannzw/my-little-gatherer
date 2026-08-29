@@ -66,8 +66,8 @@ Goal: Understand how LLM applications work end-to-end.
     - [ ] Context window
     - [ ] Token limits
     - [ ] System prompts
-- [ ] Build simple Python LLM client
-- [ ] Create basic chat interface
+- [x] Build simple Python LLM client
+- [x] Create basic chat interface
 - [ ] Support conversation history
 - [ ] Add streaming responses
 
