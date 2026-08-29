@@ -1,10 +1,42 @@
-# My Little Gatherer 🧠
+# My Little Gatherer
 
 A personal AI knowledge assistant.
 
 This project is my journey into modern LLM engineering, starting from a simple document assistant and gradually evolving into a more capable AI knowledge system.
 
 The goal is to learn and apply modern AI engineering practices including RAG, embeddings, vector databases, LLM orchestration, evaluation, deployment, and agentic workflows.
+
+## Run locally
+
+The application has three local processes: llama.cpp, the Python API, and the Next.js UI.
+
+1. Start llama.cpp using `scripts/start_model.bat`, or follow [the llama.cpp setup guide](docs/setup_llamacpp.md). The model server listens on `http://127.0.0.1:8080`.
+2. From the repository root, install the Python package and start FastAPI:
+
+    ```powershell
+    uv sync
+    uv run uvicorn gatherer.api.main:app --reload --port 8000
+    ```
+
+3. In a second terminal, install and start the Next.js UI:
+
+    ```powershell
+    cd ui
+    npm install
+    npm run dev
+    ```
+
+4. Open `http://localhost:3000`.
+
+Next.js sends browser requests to its same-origin `/api/ask` route. That server route forwards them to FastAPI at `http://127.0.0.1:8000`. To use another API address, set the server-only `FASTAPI_URL` environment variable before starting Next.js.
+
+Useful checks from `ui/`:
+
+```powershell
+npm run lint
+npm run typecheck
+npm run build
+```
 
 ---
 
@@ -46,7 +78,7 @@ Goal: Understand how LLM applications work end-to-end.
 Goal: Build like a real software system.
 
 - [ ] Create backend API using FastAPI
-- [ ] Create frontend using Streamlit
+- [ ] Create frontend using next.js
 - [ ] Separate frontend/backend/model logic
 - [ ] Add API endpoints
 - [ ] Add request validation
