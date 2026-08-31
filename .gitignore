@@ -48,3 +48,6 @@ Thumbs.db
 !scripts/*.bat
 !src/
 !ui/
+
+# Scripts
+*.bat
