@@ -2,7 +2,7 @@
 
 A personal AI knowledge assistant.
 
-This project is my journey into modern LLM engineering, starting from a simple document assistant and gradually evolving into a more capable AI knowledge system.
+This project is a siblings' journey into modern LLM engineering, starting from a simple document assistant and gradually evolving into a more capable AI knowledge system.
 
 The goal is to learn and apply modern AI engineering practices including RAG, embeddings, vector databases, LLM orchestration, evaluation, deployment, and agentic workflows.
 
