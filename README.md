@@ -1,7 +1,14 @@
-# My Little Gatherer
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/f7f1f5d6-6cb5-4138-b974-b6661cc34cae" width="96" alt="My Little Gatherer">
+</p>
 
-A personal AI knowledge assistant.
+<h1 align="center">My Little Gatherer</h1>
 
+<p align="center">
+  A data gathering companion that tries its best.
+</p>
+<br>
+  
 This project is a siblings' journey into modern LLM engineering, starting from a simple document assistant and gradually evolving into a more capable AI knowledge system.
 
 The goal is to learn and apply modern AI engineering practices including RAG, embeddings, vector databases, LLM orchestration, evaluation, deployment, and agentic workflows.
