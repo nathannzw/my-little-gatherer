@@ -1,3 +1,9 @@
+# Keep source and startup scripts tracked
+!scripts/
+!scripts/*.bat
+!src/
+!ui/
+
 # Python
 .venv/
 venv/
@@ -20,7 +26,6 @@ htmlcov/
 !.env.example
 
 # Local model/runtime assets
-models/
 *.gguf
 llama-cpp/
 
@@ -42,12 +47,6 @@ pnpm-debug.log*
 *.code-workspace
 .DS_Store
 Thumbs.db
-
-# Keep source and startup scripts tracked
-!scripts/
-!scripts/*.bat
-!src/
-!ui/
 
 # Scripts
 *.bat
