@@ -1,36 +1,13 @@
 from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
 
-from gatherer.llm.client import LLMError, LLMResult, ask_llm
+from gatherer.api.models import LLMRequest, LLMResponse
+from gatherer.llm.client import LLMError, ask_llm
 
 router = APIRouter()
 
 
-class AskRequest(BaseModel):
-    prompt: str
-    temperature: float = Field(default=0.7, ge=0.0, le=2.0)
-    top_p: float = Field(default=0.95, gt=0.0, le=1.0)
-    max_tokens: int = Field(default=2048, ge=1, le=4096)
-
-
-class AskResponse(BaseModel):
-    answer: str
-    model: str
-    elapsed_seconds: float
-    prompt_chars: int
-    output_chars: int
-    finish_reason: str | None
-    prompt_tokens: int | None
-    completion_tokens: int | None
-    total_tokens: int | None
-
-    @classmethod
-    def from_result(cls, result: LLMResult) -> "AskResponse":
-        return cls(**result.__dict__)
-
-
-@router.post("/ask", response_model=AskResponse)
-def ask(request: AskRequest) -> AskResponse:
+@router.post("/ask", response_model=LLMResponse)
+def ask(request: LLMRequest) -> LLMResponse:
     try:
         result = ask_llm(
             request.prompt,
@@ -44,4 +21,4 @@ def ask(request: AskRequest) -> AskResponse:
         status_code = 504 if "too long" in str(error) else 502
         raise HTTPException(status_code=status_code, detail=str(error)) from error
 
-    return AskResponse.from_result(result)
+    return result

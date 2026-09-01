@@ -1,27 +1,14 @@
 import time
-from dataclasses import dataclass
 
 from openai import OpenAI
 from openai import APIConnectionError, APIStatusError, APITimeoutError
 
+from gatherer.api.models import LLMResponse
 from gatherer.core.config import settings
 
 
 class LLMError(RuntimeError):
     """An expected failure while communicating with the model server."""
-
-
-@dataclass(frozen=True)
-class LLMResult:
-    answer: str
-    model: str
-    elapsed_seconds: float
-    prompt_chars: int
-    output_chars: int
-    finish_reason: str | None
-    prompt_tokens: int | None
-    completion_tokens: int | None
-    total_tokens: int | None
 
 
 client = OpenAI(
@@ -37,7 +24,7 @@ def ask_llm(
     temperature: float = 0.7,
     top_p: float = 0.95,
     max_tokens: int = 512,
-) -> LLMResult:
+) -> LLMResponse:
     prompt = prompt.strip()
     if not prompt:
         raise ValueError("Please enter a question before sending it.")
@@ -77,7 +64,7 @@ def ask_llm(
     usage = response.usage
     choice = response.choices[0]
 
-    return LLMResult(
+    return LLMResponse(
         answer=answer,
         model=response.model,
         elapsed_seconds=elapsed_seconds,
