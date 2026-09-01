@@ -90,7 +90,7 @@ Goal: Build like a real software system.
 
 # Phase 3 — Document Intelligence
 
-Goal: Make the AI understand my files.
+Goal: Make the AI understand files.
 
 Support:
 
