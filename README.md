@@ -18,17 +18,18 @@ The goal is to learn and apply modern AI engineering practices including RAG, em
 The application has three local processes: llama.cpp, the Python API, and the Next.js UI.
 
 1. Start llama.cpp using `scripts/start_model.bat`, or follow [the llama.cpp setup guide](docs/setup_llamacpp.md). The model server listens on `http://127.0.0.1:8080`.
-2. From the repository root, install the Python package and start FastAPI:
+2. In a second terminal, install the Python package and start FastAPI from the `server/` folder:
 
     ```powershell
+    cd server
     uv sync
     uv run uvicorn gatherer.api.main:app --reload --port 8000
     ```
 
-3. In a second terminal, install and start the Next.js UI:
+3. In a third terminal, install and start the Next.js UI from the `client/` folder:
 
     ```powershell
-    cd ui
+    cd client
     npm install
     npm run dev
     ```
@@ -37,12 +38,29 @@ The application has three local processes: llama.cpp, the Python API, and the Ne
 
 Next.js sends browser requests to its same-origin `/api/ask` route. That server route forwards them to FastAPI at `http://127.0.0.1:8000`. To use another API address, set the server-only `FASTAPI_URL` environment variable before starting Next.js.
 
-Useful checks from `ui/`:
+Useful checks from `client/`:
 
 ```powershell
 npm run lint
 npm run typecheck
 npm run build
+```
+
+## Project structure
+
+The repository is split into two self-contained applications:
+
+```
+my-little-gatherer/
+├── client/          # Next.js UI (npm)
+├── server/          # FastAPI + LLM client (uv)
+│   └── src/gatherer/
+│       ├── api/     # FastAPI app, routes, request/response models
+│       ├── core/    # Configuration
+│       └── llm/     # LLM client and prompt construction
+├── docs/            # Setup guides
+├── models/          # Local GGUF models (git-ignored)
+└── scripts/         # Launcher scripts
 ```
 
 ---
@@ -86,7 +104,7 @@ Goal: Build like a real software system.
 
 - [ ] Create backend API using FastAPI
 - [ ] Create frontend using next.js
-- [ ] Separate frontend/backend/model logic
+- [x] Separate frontend/backend/model logic
 - [ ] Add API endpoints
 - [ ] Add request validation
 - [ ] Add error handling
