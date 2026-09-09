@@ -1,8 +1,8 @@
 # Keep source and startup scripts tracked
 !scripts/
 !scripts/*.bat
-!src/
-!ui/
+!client/
+!server/
 
 # Python
 .venv/

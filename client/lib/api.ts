@@ -15,7 +15,8 @@ export async function askModel(request: AskRequest): Promise<LLMResult> {
 
   const body = (await response.json()) as ApiError | LLMResult;
   if (!response.ok) {
-    throw new Error(body.detail ?? "The model server returned an error.");
+    const message = "detail" in body ? body.detail : undefined;
+    throw new Error(message ?? "The model server returned an error.");
   }
 
   return body as LLMResult;
