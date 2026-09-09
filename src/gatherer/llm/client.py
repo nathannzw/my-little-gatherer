@@ -1,10 +1,12 @@
 import time
+from collections.abc import Sequence
 
 from openai import OpenAI
 from openai import APIConnectionError, APIStatusError, APITimeoutError
 
 from gatherer.api.models import LLMResponse
 from gatherer.core.config import settings
+from gatherer.llm.prompts.builder import ChatMessage
 
 
 class LLMError(RuntimeError):
@@ -19,17 +21,26 @@ client = OpenAI(
 
 
 def ask_llm(
-    prompt: str,
+    messages: Sequence[ChatMessage],
     *,
     temperature: float = 0.7,
     top_p: float = 0.95,
     max_tokens: int = 512,
 ) -> LLMResponse:
-    prompt = prompt.strip()
-    if not prompt:
-        raise ValueError("Please enter a question before sending it.")
-    if len(prompt) > 10_000:
+    messages = list(messages)
+
+    if not messages:
+        raise ValueError("At least one message is required.")
+
+    prompt_text = "\n".join(
+        message["content"]
+        for message in messages
+        if message["role"] == "user"
+    )
+
+    if len(prompt_text) > 10_000:
         raise ValueError("Please keep your question under 10,000 characters.")
+    
     if not 0.0 <= temperature <= 2.0:
         raise ValueError("Temperature must be between 0 and 2.")
     if not 0.0 < top_p <= 1.0:
@@ -42,7 +53,7 @@ def ask_llm(
     try:
         response = client.chat.completions.create(
             model=settings.model_name,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             temperature=temperature,
             top_p=top_p,
             max_tokens=max_tokens,
@@ -68,7 +79,7 @@ def ask_llm(
         answer=answer,
         model=response.model,
         elapsed_seconds=elapsed_seconds,
-        prompt_chars=len(prompt),
+        prompt_chars=len(prompt_text),
         output_chars=len(answer),
         finish_reason=choice.finish_reason,
         prompt_tokens=getattr(usage, "prompt_tokens", None),
